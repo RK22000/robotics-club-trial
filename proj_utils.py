@@ -1,6 +1,39 @@
 import pygame
 import random
 
+class Parameters:
+    def __init__(self, xs=48, ys=48, density=0.2) -> None:
+        self.xs = xs
+        self.ys = ys
+        self.density = density
+        self.blocks, _ = make_grid(xs, ys, density)
+        self.start = random_loc(xs, ys, self.blocks)
+        self.end = random_loc(xs, ys, self.blocks)
+
+def draw_background(screen, parameters:Parameters, color_bg='white', color_bk='grey50'):
+
+    xs, ys, blocks = parameters.xs, parameters.ys, parameters.blocks
+    cell_size = calc_cell_size(xs, ys, screen)
+    pygame.draw.rect(screen, color_bg, pygame.Rect((0, 0), (xs*cell_size, ys*cell_size)))
+    draw_blocks(screen, blocks, cell_size, color_bk)
+    # for x in blocks:
+    #     for y in blocks[x]:
+    #         _x, _y = cell_size*x, cell_size*y
+    #         pygame.draw.rect(screen, color_bk, pygame.Rect((_x, _y), (cell_size, cell_size)))
+    
+    start, end = parameters.start, parameters.end
+    pygame.draw.circle(screen, 'blue', (start+[0.5]*2)*cell_size, cell_size*0.3)
+    pygame.draw.circle(screen, 'green', (end+[0.5]*2)*cell_size, cell_size*0.3)
+
+def draw_blocks(screen, blocks, cell_size, color):
+    for x in blocks:
+        for y in blocks[x]:
+            _x, _y = cell_size*x, cell_size*y
+            pygame.draw.rect(screen, color, pygame.Rect((_x, _y), (cell_size, cell_size)))
+
+
+
+
 def calc_cell_size(xs, ys, screen):
     return min(screen.get_width()/xs, screen.get_height()/ys)
 
@@ -11,7 +44,7 @@ def random_loc(xs, ys, blocked):
         _y = [y for y in range(ys) if y not in blocked[x]]
     y = random.choice(list(_y))
 
-    return (x, y)
+    return pygame.Vector2(x, y)
 
     # return (random.randint(0, xs-1), random.randint(0, ys-1))
 
