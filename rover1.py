@@ -45,6 +45,9 @@ class Rover:
         TOP_RIGHT: RIGHT
     }
     def __init__(self, parameters: proj_utils.Parameters) -> None:
+        self.refresh(parameters)
+    
+    def refresh(self, parameters: proj_utils.Parameters) -> None:
         self.known_blocks = dict()
         self.pos = parameters.start
         self.path = [self.pos]
@@ -125,7 +128,7 @@ class Rover:
         next_cell = path[1]
         # turn to face the correct direction
         while self.pos + self.next_cell[self.dir] != next_cell:
-            print(f"turning {self.pos} -> {next_cell}")
+            # print(f"turning {self.pos} -> {next_cell}")
             self.dir = self.next_dir[self.dir]
         # Check blocks
         if not self.stepable(self.pos, next_cell, actual_blocks):

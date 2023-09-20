@@ -1,3 +1,4 @@
+from typing import Any
 import pygame
 import random
 
@@ -6,9 +7,15 @@ class Parameters:
         self.xs = xs
         self.ys = ys
         self.density = density
-        self.blocks, _ = make_grid(xs, ys, density)
-        self.start = random_loc(xs, ys, self.blocks)
-        self.end = random_loc(xs, ys, self.blocks)
+        self.refresh()
+
+    def refresh(self, xs=None, ys=None, density=None) -> None:
+        if xs is not None: self.xs = xs
+        if ys is not None: self.ys = ys
+        if density is not None: self.density = density
+        self.blocks, _ = make_grid(self.xs, self.ys, self.density)
+        self.start = random_loc(self.xs, self.ys, self.blocks)
+        self.end = random_loc(self.xs, self.ys, self.blocks)
 
 def draw_background(screen, parameters:Parameters, color_bg='white', color_bk='grey50'):
 
@@ -41,7 +48,7 @@ def random_loc(xs, ys, blocked):
     _y = set()
     while not _y:
         x = random.randint(0, xs-1)
-        _y = [y for y in range(ys) if y not in blocked[x]]
+        _y = [y for y in range(ys) if x not in blocked or y not in blocked[x]]
     y = random.choice(list(_y))
 
     return pygame.Vector2(x, y)
@@ -108,4 +115,30 @@ def draw_grid(screen:pygame.Surface, grid:tuple[dict, tuple[int, int]], known_bl
             pygame.draw.rect(screen, color, pygame.Rect((_x, _y), (cell_size, cell_size)))
 
     
+class Keyed:
+    def __init__(self) -> None:
+        self.keys = set()
+        self.pressed = dict() # key -> pressed
+        self.action = dict() # key -> lambda
+    def add_action(self, key: int, action):
+        self.keys.add(key)
+        self.pressed[key] = False
+        self.action[key] = action
+    def __call__(self, *args: Any, **kwds: Any) -> Any:
+        pressed_key = pygame.key.get_pressed()
+        for key in self.keys:
+            if pressed_key[key] and not self.pressed[key]:
+                self.action[key]()
+                self.pressed[key] = True
+            elif self.pressed[key] and not pressed_key[key]:
+                self.pressed[key] = False
 
+def cell_coord(pos:pygame.Vector2, screen, xs, ys):
+    cell_size = calc_cell_size(xs, ys, screen)
+    x = pos[0] // cell_size
+    y = pos[1] // cell_size
+    return pygame.Vector2(x,y)
+
+def move_to_cell(cell: pygame.Vector2, screen, xs, ys):
+    cell_size = calc_cell_size(xs, ys, screen)
+    pygame.mouse.set_pos((cell+(0.5,0.5))*cell_size)
