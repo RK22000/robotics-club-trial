@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Wed Sep 20 20&colon;36&colon;42 PDT 2023</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="wed-sep-20-203642-pdt-2023">Wed Sep 20 20:36:42 PDT 2023</h1>
+<p>Here's an update. I'm calling Rover1 complete. Like Rover0 Rover1 uses a kind of A* or Dijkstra's path finding algorithm.</p>
+<p>Here's the method.</p>
+<p>The rover initially assumes that there are no blockades on the map. Under this assumption the rover plots the optimal route to the destination. Once plotted the rover takes a step on that route and repeats. If the rover is ever unable to take the step due to a blockade, the rover updates its assumptions on the existing blockades and tries again.</p>
+<p><img src="file:///d:\Projects\RoboticsClubProject\pics\rover1-sm.gif" alt=""></p>
+<p>I initially thought this is good enough but then I realized there are points where the steps could be optimized. This is much more clearly visible when the grid size is increased so that the rover needs to plot much longer routes.</p>
+<p><img src="file:///d:\Projects\RoboticsClubProject\pics\slow_huristic_far_away-sm.gif" alt=""></p>
+<p>What we see is that the rover acts slowly when its charting a route from far away from the destination, and it acts faster when its charting a route from near the destination.</p>
+<p>I know this can be optimized because I implemented the route charting using Dijkstra's algorithm. If I implement it using A* then the route charting will be faster. The funny thing is that this will technically be a heuristic on top of a heuristic. The first heuristic is Dijkstra's charting a route with reduced knowledge of the blockades. The second heuristic is the Manhattan distance from a point to the destination.</p>
+<p>Also I should add in a visualization for the paths explored while searching for the heuristic path.</p>
+<hr>
+<blockquote>
+<p>endlog - Wed Sep 20 21:08:35 PDT 2023</p>
+</blockquote>
+<h2 id="tue-sep-19-170317-pdt-2023">Tue Sep 19 17:03:17 PDT 2023</h2>
+<p>This looks fun. I cant belive I went so long without knowing about pygame!</p>
+<hr>
+<blockquote>
+<p>endlog - Tue Sep 19 17:05:11 PDT 2023</p>
+</blockquote>
+
+        
+        
+    </body>
+    </html>

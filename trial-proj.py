@@ -14,7 +14,7 @@ def main():
     # fps = 0
     class FPS:
         def __init__(self) -> None:
-            self.arr = [4, 8, 15, 30, 60, 120]
+            self.arr = [4, 8, 15, 30, 60, 120, 240, 480, 960]
             self.i = 0
         def faster(self):
             self.i = min(len(self.arr)-1, self.i+1)
@@ -49,6 +49,20 @@ def main():
     keyed.add_action(
         pygame.K_LEFT,
         fps.slower
+    )
+    keyed.add_action(
+        pygame.K_EQUALS,
+        lambda: (
+            parameters.refresh(parameters.xs+1, parameters.ys+1),
+            rover.refresh(parameters)
+        )
+    )
+    keyed.add_action(
+        pygame.K_MINUS,
+        lambda: (
+            parameters.refresh(parameters.xs-1, parameters.ys-1),
+            rover.refresh(parameters)
+        )
     )
     while running:
         keys = pygame.key.get_pressed()

@@ -3,7 +3,7 @@ import pygame
 import random
 
 class Parameters:
-    def __init__(self, xs=48, ys=48, density=0.2) -> None:
+    def __init__(self, xs=50, ys=50, density=0.2) -> None:
         self.xs = xs
         self.ys = ys
         self.density = density
