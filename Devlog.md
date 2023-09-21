@@ -1,4 +1,13 @@
-# Wed Sep 20 20:36:42 PDT 2023
+# Wed Sep 20 23:22:45 PDT 2023
+
+Visualizing the heuristically explored path makes this look soo much cooler. Also Rover2 can swap between Dijkstra and A* with euclid distance heuristic. The heuristic makes the rover move soo much faster.
+
+![](pics/rover2.gif)
+
+---
+> endlog - Wed Sep 20 23:27:13 PDT 2023
+
+## Wed Sep 20 20:36:42 PDT 2023
 
 Here's an update. I'm calling Rover1 complete. Like Rover0 Rover1 uses a kind of A* or Dijkstra's path finding algorithm.
 
