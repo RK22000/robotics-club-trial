@@ -1,13 +1,16 @@
 from typing import Any
 import proj_utils
 import pygame
-from rover2 import Rover
+from rover3 import Rover
 
 def main():
     parameters = proj_utils.Parameters()
     rover = Rover(parameters)
     pygame.init()
-    screen = pygame.display.set_mode((1280, 720), pygame.SRCALPHA)
+    size = (1280, 720)
+    size = (500, 500)
+    screen = pygame.display.set_mode(size, pygame.SRCALPHA|pygame.NOFRAME)
+    screen.set_alpha(100)
     clock = pygame.time.Clock()
     running = True
     # FPS = [4, 8, 15, 30, 60, 120]
@@ -67,6 +70,10 @@ def main():
     keyed.add_action(
         pygame.K_h,
         rover.next_heuristic
+    )
+    keyed.add_action(
+        pygame.K_c,
+        rover.cache
     )
     while running:
         keys = pygame.key.get_pressed()

@@ -56,7 +56,8 @@ class Rover:
         self.pos = parameters.start
         self.path = [self.pos]
         self.hcells = []
-        self.heuristic_i = 0
+        if not hasattr(self, 'heuristic_i'):
+            self.heuristic_i = 0
         self.heuristic = self.heuristics[self.heuristic_i]
         self.dir = self.DOWN
         self.xs, self.ys = parameters.xs, parameters.ys
@@ -157,7 +158,7 @@ class Rover:
         for hcell in self.hcells:
             surf = pygame.Surface((cell_size, cell_size))
             surf.fill('green')
-            surf.set_alpha(50)
+            surf.set_alpha(25)
             screen.blit(surf, hcell*cell_size)
         failure = self.pos != self.end and len(hpath) < 2
         if len(hpath) > 1:

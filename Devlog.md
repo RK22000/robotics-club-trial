@@ -1,4 +1,31 @@
-# Wed Sep 20 23:22:45 PDT 2023
+# Tue Sep 26 15:18:19 PDT 2023
+
+Implemented some more of Bee0.
+
+It ignores blocks, and uses simple dijkstras. But it tracks multiple goals.
+
+---
+> endlog - Tue Sep 26 15:20:37 PDT 2023
+
+## Mon Sep 25 14:37:40 PDT 2023
+
+Dude caching makes this sooo much faster. Even the dijkstra's slow rover suddenly became really fast in low density mazes. This was a really small edit for a really cool boost. 
+
+---
+> endlog - Mon Sep 25 14:40:03 PDT 2023
+
+## Sat Sep 23 01:41:59 PDT 2023
+
+Rover3 is going to be Bee0.
+
+This Bee will navigate a honeycomb (Hexagonal Grid). Furthermore it will have multiple goals instead of a single goal. The bee will have to decide for itself which goal it will want to go too first. 
+
+Bee1 will start to cach its heuristic path as long as there are not block along that heuristic path. This is better than Rover2 which recomputes the heuristic path after every step.
+
+---
+> endlog - Sat Sep 23 01:57:50 PDT 2023
+
+## Wed Sep 20 23:22:45 PDT 2023
 
 Visualizing the heuristically explored path makes this look soo much cooler. Also Rover2 can swap between Dijkstra and A* with euclid distance heuristic. The heuristic makes the rover move soo much faster.
 
