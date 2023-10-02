@@ -1,4 +1,19 @@
-# Tue Sep 26 15:18:19 PDT 2023
+# Tue Sep 26 19:27:38 PDT 2023
+
+I need to decide on the metrics to track.
+
+- Collisions
+- Cells virtually explored
+- Travel length
+- Optimal path length
+- Execution time
+
+To track the metric I'll set the metric values to 0. Update them through the run. And finally note themetric.
+
+---
+> endlog - Tue Sep 26 19:51:11 PDT 2023
+
+## Tue Sep 26 15:18:19 PDT 2023
 
 Implemented some more of Bee0.
 

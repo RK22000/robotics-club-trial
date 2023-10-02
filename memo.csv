@@ -1,0 +1,10 @@
+Bee_type,Density,Ideal_Travel_length,Travel_length,Virtual_exploration
+Bee Prime,0.0,14,14,704
+Bee Prime,0.4,61,83,60754
+Bee Prime,0.4,28,29,10519
+Bee Prime,0.4,47,83,23433
+Bee Prime,0.3,30,36,18141
+Bee Prime,0.3,30,30,7192
+Dijkstra's Bee,0.3,16,16,894
+Dijkstra's Bee,0.3,13,14,730
+Dijkstra's Bee,0.30000000000000004,14,15,708

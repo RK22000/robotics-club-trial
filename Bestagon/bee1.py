@@ -4,8 +4,10 @@ from heapq import heappush, heappop
 from bee import *
 
 class Bee(BeePrime):
-    def __init__(self) -> None:
-        self.type = 'Dijkstra\'s Bee'
+    def __init__(self, name='Dijkstra\'s Bee', heuristic=lambda a,b: 0) -> None:
+        self.type = name
+        self.name = name
+        self.heuristic=heuristic
         self.refresh()
     def refresh(self):
         self.blocks = set()
@@ -37,18 +39,21 @@ class Bee(BeePrime):
             self.planned.clear()
             return
         if blocks is None: blocks=self.blocks
-        # cost, cur, prev
-        q = [(0, self.pos, None)]
+        # cost, arrival cost, cur, prev
+        q = [(0, 0, self.pos, None)]
         p = dict()
         while q:
-            cost, cur, prev = heappop(q)
+            cost, arcost, cur, prev = heappop(q)
             if cur in p: continue
             p[cur]=prev
             self.mentally_explored.append(cur)
             if cur in self.goals:
                 break
             for n in filter(lambda cell: cell not in blocks, honeycomb.neighbours(cur)):
-                heappush(q, (cost+1, n, cur))
+                gc = [i for i in self.goals]
+                gc = [self.heuristic(n, i) for i in gc]
+                hc = min(gc)
+                heappush(q, (arcost+1+hc, arcost+1, n, cur))
         if cur not in self.goals:
             self.planned=[]
             self.status_failed = True

@@ -1,8 +1,8 @@
 import pygame
-from math import sin, pi, cos
+from math import sin, pi, cos, sqrt
 import random
 
-side = 50
+side = 20
 buffer = 1.1
 screen: pygame.Surface = None
 maxX = lambda: (screen.get_width()-0.5*(side*buffer))//(1.5*side*buffer)
@@ -66,7 +66,7 @@ ngoals = 2
 def generate_start_and_goals():
     global start, goals
     start = random.choice(list(all_cells()-blocks))
-    goals = random.sample(list(all_cells()-blocks-set([start])), ngoals)
+    goals = set(random.sample(list(all_cells()-blocks-set([start])), ngoals))
 
 def all_cells():
     if not hasattr(all_cells, 'state'): all_cells.state = None
@@ -102,10 +102,29 @@ def rotate(cell: pygame.Vector2, dir: float) -> pygame.Vector2:
     cell = pygame.Vector2(cell)
     return pygame.Vector2(cell.x*cos(dir)-cell.y*sin(dir), cell.x*sin(dir)+cell.y*cos(dir))
 
+def cell_to_coord(cell:pygame.Vector2) -> pygame.Vector2:
+    x = (1.5*cell[0]*buffer+1)*side
+    y = (sin(pi/3)*(cell[1]*buffer+1))*side
+    return (x,y)
+def cell_dist(a,b):
+    x1,y1 = cell_to_coord(a)
+    x2,y2 = cell_to_coord(b)
+    return sqrt((x1-x2)**2+(y1-y2)**2)/side
+def coord_to_cell(coord:pygame.Vector2) -> pygame.Vector2:
+    x = (coord[0] - side) / (1.5*buffer*side)
+    y = (coord[1] - side*sin(pi/3)) / (sin(pi/3)*side*buffer)
+    x = round(x)
+    if x%2==round(y)%2:
+        y=round(y)
+    else:
+        y = round(y-1) if abs(round(y-1)-y) < abs(round(y+1)-y) else round(y+1)
+    return (x,y)
+
 def draw_path(path: list[pygame.Vector2], color: pygame.Color):
     color = pygame.Color(color)
-    path = [(pygame.Vector2(1.5*x, y*sin(pi/3))*buffer+(1,sin(pi/3)))*side for x,y in path]
-    pygame.draw.lines(screen, color, closed=False, points=path)
+    # path = [(pygame.Vector2(1.5*x, y*sin(pi/3))*buffer+(1,sin(pi/3)))*side for x,y in path]
+    path = [cell_to_coord(cell) for cell in path]
+    pygame.draw.lines(screen, color, closed=False, points=path, width=max(int(0.25*side),1))
 
 def draw_bee(cell: pygame.Vector2, dir: float, color):
     surf = pygame.Surface(pygame.Vector2(2.0, 2*sin(pi/3))*side, pygame.SRCALPHA)
@@ -126,6 +145,9 @@ def draw_bee(cell: pygame.Vector2, dir: float, color):
 def newComb():
     all_cells.state = None
     all_cells()
+
+def cell_at(coord: pygame.Vector2):
+    pass
 
     
 
